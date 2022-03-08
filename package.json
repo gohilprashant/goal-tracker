@@ -1,0 +1,28 @@
+{
+  "name": "goal-tracker",
+  "version": "1.0.0",
+  "description": "Add and track your goals",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gohilprashant/goal-tracker.git"
+  },
+  "author": "Prashant Gohil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gohilprashant/goal-tracker/issues"
+  },
+  "homepage": "https://github.com/gohilprashant/goal-tracker#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
