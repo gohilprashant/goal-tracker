@@ -1,0 +1,79 @@
+:root {
+  --bs-dark-rgb: 34, 31, 40;
+  --bs-primary-rgb: 255, 24, 24;
+  --bs-dark: #221f28;
+}
+
+body {
+  /* background: #ececec; */
+  background: #15141a;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+.navbar {
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.5); */
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+}
+.input-group {
+  background: transparent;
+}
+.input-group .input-group-text,
+.input-group .form-control {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+.form-control {
+  padding: 0.6rem 0.75rem;
+}
+.input-group:focus-within .input-group-text,
+.input-group:focus-within .form-control {
+  background-color: transparent;
+}
+
+.input-group.is-invalid .input-group-text,
+.input-group.is-invalid .form-control {
+  border-color: var(--bs-danger);
+}
+
+.custom-card {
+  background-color: var(--bs-dark);
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.goal {
+  background-color: var(--bs-dark);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  margin-top: 1rem;
+}
+.goal-detail {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.goal-actions button {
+  display: flex;
+  padding: 0.7rem;
+}
+
+/* ECECEC 5463FF FFC300 FF1818 */
+
+/* ECECEC 5463FF FFC300 FF1818 */
