@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Card, Col, Form, FormFeedback, FormGroup, Input, InputGroup, InputGroupText, Row } from 'reactstrap';
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import { FaEnvelope, FaLock, FaUser, FaUserAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../store/slices/authSlice';
+import { toast } from 'react-toastify';
+import { reset } from '../store/slices/uiSlice';
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Please enter your full name'),
@@ -20,6 +24,23 @@ const registerSchema = Yup.object().shape({
 });
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const { loading, error, message, success } = useSelector((state) => state.ui);
+
+  useEffect(() => {
+    if (error) {
+      toast(error);
+    }
+
+    if (success || user) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [error, success, user]);
+
   return (
     <Row className='justify-content-center mt-5 pt-5'>
       <Col md={7} lg={6} xl={5}>
@@ -32,7 +53,7 @@ const Register = () => {
             validationSchema={registerSchema}
             onSubmit={(values, { resetForm }) => {
               const { name, email, password } = values;
-              console.log(name, email, password);
+              dispatch(registerUser({ name, email, password }));
               resetForm({ name: '', email: '', password: '', confirmPassword: '' });
             }}
           >

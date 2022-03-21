@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Card, Col, Form, FormFeedback, FormGroup, Input, InputGroup, InputGroupText, Row } from 'reactstrap';
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import { FaEnvelope, FaLock, FaUser, FaUserAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const registerSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter your email'),
@@ -16,6 +17,17 @@ const registerSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const { loading, error, message, success } = useSelector((state) => state.ui);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
     <Row className='justify-content-center mt-5 pt-5'>
       <Col md={7} lg={6} xl={5}>
