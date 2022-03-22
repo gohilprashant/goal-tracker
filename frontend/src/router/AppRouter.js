@@ -12,9 +12,9 @@ const AppRouter = () => {
         <Route
           path='/'
           element={
-            <PublicRoute>
+            <PrivateRoute>
               <Dashboard />
-            </PublicRoute>
+            </PrivateRoute>
           }
         />
         <Route

@@ -5,6 +5,9 @@ import * as Yup from 'yup';
 import { FaEnvelope, FaLock, FaUser, FaUserAlt } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { loginUser } from '../store/slices/authSlice';
+import { reset } from '../store/slices/uiSlice';
 
 const registerSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter your email'),
@@ -23,10 +26,19 @@ const Login = () => {
   const { loading, error, message, success } = useSelector((state) => state.ui);
 
   useEffect(() => {
-    if (user) {
+    if (error) {
+      toast(error);
+    }
+    if (success) {
+      toast(success);
+    }
+
+    if (user || success) {
       navigate('/');
     }
-  }, [user]);
+
+    dispatch(reset());
+  }, [error, success, user]);
 
   return (
     <Row className='justify-content-center mt-5 pt-5'>
@@ -39,8 +51,8 @@ const Login = () => {
             initialValues={{ email: '', password: '' }}
             validationSchema={registerSchema}
             onSubmit={(values, { resetForm }) => {
-              const { name, email, password } = values;
-              console.log(email, password);
+              const { email, password } = values;
+              dispatch(loginUser({ email, password }));
               resetForm({ email: '', password: '' });
             }}
           >

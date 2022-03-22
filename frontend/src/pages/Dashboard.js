@@ -4,16 +4,18 @@ import * as Yup from 'yup';
 import { Col, Form, FormFeedback, FormGroup, Input, InputGroup, InputGroupText, Row, Button } from 'reactstrap';
 import { FaBullseye } from 'react-icons/fa';
 import GoalsContainer from '../components/goals/GoalsContainer';
+import { useSelector } from 'react-redux';
 
 const registerSchema = Yup.object().shape({
   goal: Yup.string().min(2, 'Too Short!').required('Please enter goal'),
 });
 
 const Dashboard = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <Row className='justify-content-center mt-5 pt-5'>
       <Col md={7} lg={6} xl={5}>
-        <h1 className='text-center mb-4'>Welcome Prashant Gohil</h1>
+        <h1 className='text-center mb-4'>Welcome {user.name}</h1>
         <Formik
           initialValues={{ goal: '' }}
           validationSchema={registerSchema}

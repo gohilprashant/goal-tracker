@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='App'>
       <AppRouter />
-      <ToastContainer />
+      <ToastContainer position='top-center' autoClose={2500} />
       {loading && <Loader />}
     </div>
   );

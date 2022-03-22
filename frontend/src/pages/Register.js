@@ -33,8 +33,11 @@ const Register = () => {
     if (error) {
       toast(error);
     }
+    if (success) {
+      toast(success);
+    }
 
-    if (success || user) {
+    if (user || success) {
       navigate('/');
     }
 
