@@ -5,7 +5,7 @@ import { Col, Form, FormFeedback, FormGroup, Input, InputGroup, InputGroupText, 
 import { FaBullseye } from 'react-icons/fa';
 import GoalsContainer from '../components/goals/GoalsContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewGoal, getAllGoals } from '../store/slices/goalSlice';
+import { addNewGoalAsync, getAllGoalsAsync } from '../store/slices/goalSlice';
 import { toast } from 'react-toastify';
 import { reset } from '../store/slices/uiSlice';
 
@@ -29,11 +29,11 @@ const Dashboard = () => {
   }, [error, success]);
 
   useEffect(() => {
-    dispatch(getAllGoals());
+    dispatch(getAllGoalsAsync());
   }, []);
 
   return (
-    <Row className='justify-content-center mt-5 pt-5'>
+    <Row className='justify-content-center mt-5  '>
       <Col md={7} lg={6} xl={5}>
         <h1 className='text-center mb-4'>Welcome {user.name}</h1>
         <Formik
@@ -41,7 +41,7 @@ const Dashboard = () => {
           validationSchema={registerSchema}
           onSubmit={(values, { resetForm }) => {
             const { goal } = values;
-            dispatch(addNewGoal(goal));
+            dispatch(addNewGoalAsync(goal));
             resetForm({ goal: '' });
           }}
         >

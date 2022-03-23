@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../store/slices/authSlice';
 import { clearGoals } from '../../store/slices/goalSlice';
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -22,8 +23,12 @@ const Header = () => {
         </NavbarBrand>
         {!user ? (
           <Fragment>
-            <NavbarToggler onClick={function noRefCheck() {}} />
-            <Collapse navbar>
+            <NavbarToggler
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            />
+            <Collapse isOpen={isOpen} navbar>
               <Nav className='ms-auto' navbar>
                 <Fragment>
                   <NavItem>

@@ -13,11 +13,18 @@ const goalSlice = createSlice({
   name: 'goal',
   initialState,
   reducers: {
-    addGoal(state, action) {
+    addNewGoal(state, action) {
       state.goals.push(action.payload);
     },
-    getGoals(state, action) {
+    getAllGoals(state, action) {
       state.goals = action.payload;
+    },
+    removeGoal(state, action) {
+      const { id } = action.payload;
+      state.goals = state.goals.filter((g) => {
+        console.log(g._id, id);
+        return g._id !== id;
+      });
     },
     clearGoals(state, action) {
       state.goals = [];
@@ -25,7 +32,7 @@ const goalSlice = createSlice({
   },
 });
 
-export const addNewGoal = (goalData) => {
+export const addNewGoalAsync = (goalData) => {
   return async (dispatch, getState) => {
     try {
       dispatch(setLoading(true));
@@ -37,8 +44,8 @@ export const addNewGoal = (goalData) => {
       const response = await axios.post(API_URL, { text: goalData }, config);
 
       if (response.data) {
-        dispatch(setSuccess('Goal Added!'));
-        dispatch(addGoal(response.data));
+        dispatch(setSuccess('Goal added!'));
+        dispatch(addNewGoal(response.data));
         dispatch(setLoading(false));
       }
     } catch (error) {
@@ -49,7 +56,7 @@ export const addNewGoal = (goalData) => {
   };
 };
 
-export const getAllGoals = () => {
+export const getAllGoalsAsync = () => {
   return async (dispatch, getState) => {
     try {
       dispatch(setLoading(true));
@@ -61,7 +68,7 @@ export const getAllGoals = () => {
       const response = await axios.get(API_URL, config);
 
       if (response.data) {
-        dispatch(getGoals(response.data));
+        dispatch(getAllGoals(response.data));
         dispatch(setLoading(false));
       }
     } catch (error) {
@@ -72,6 +79,29 @@ export const getAllGoals = () => {
   };
 };
 
-export const { addGoal, clearGoals, getGoals } = goalSlice.actions;
+export const removeGoalAsync = (goalId) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(setLoading(true));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${getState().auth.user.token}`,
+        },
+      };
+      const response = await axios.delete(`${API_URL}/${goalId}`, config);
+      if (response.data) {
+        dispatch(setSuccess('Goal removed!'));
+        dispatch(removeGoal(response.data));
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
+      const message = error.response?.data?.message || error.message || error.toString();
+      dispatch(setError(message));
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const { addNewGoal, clearGoals, getAllGoals, removeGoal } = goalSlice.actions;
 
 export default goalSlice.reducer;

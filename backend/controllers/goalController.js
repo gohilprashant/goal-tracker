@@ -51,7 +51,7 @@ export const updateGoal = asyncHandler(async (req, res) => {
 
   // Make sure logged in user matcher goal user
   console.log(user._id, user.id);
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== user.id.toString()) {
     res.status(401);
     throw new Error('User not authorized');
   }
@@ -82,7 +82,7 @@ export const deleteGoal = asyncHandler(async (req, res) => {
   }
 
   // Make sure logged in user matcher goal user
-  if (goal.user.toString() !== user._id) {
+  if (goal.user.toString() !== user._id.toString()) {
     res.status(401);
     throw new Error('User not authorized');
   }
