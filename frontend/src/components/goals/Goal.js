@@ -2,13 +2,15 @@ import { Button } from 'reactstrap';
 import React from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const Goal = () => {
+const Goal = ({ goal }) => {
+  const date = new Date(goal.createdAt);
+
   return (
     <div className='goal'>
       <div className='goal-detail'>
-        <h4>My Goal</h4>
+        <h4>{goal.text}</h4>
         <p className='mb-0'>
-          <small>2/10/2022</small>
+          <small>{date.toLocaleDateString('en-US')}</small>
         </p>
       </div>
       <div className='goal-actions'>

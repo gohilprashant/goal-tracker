@@ -4,12 +4,14 @@ import { Button, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, Nav
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../store/slices/authSlice';
+import { clearGoals } from '../../store/slices/goalSlice';
 const Header = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logOut());
+    dispatch(clearGoals());
   };
 
   return (

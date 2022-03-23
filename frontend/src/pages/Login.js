@@ -23,7 +23,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { loading, error, message, success } = useSelector((state) => state.ui);
+  const { loading, error, success } = useSelector((state) => state.ui);
 
   useEffect(() => {
     if (error) {
