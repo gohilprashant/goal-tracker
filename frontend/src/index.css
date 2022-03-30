@@ -88,6 +88,19 @@ h3 {
   font-size: 0.75rem;
 }
 
+.edit-goal-form {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.edit-goal-form .form-group {
+  flex: 1;
+}
+.edit-goal-form .btn {
+  min-height: 45px;
+  min-width: 45px;
+}
 .loader-container {
   display: flex;
   justify-content: center;
