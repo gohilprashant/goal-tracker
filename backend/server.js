@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import goalRouter from './routes/goalRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import { errorHandler } from './middleware/errorMiddleware.js';
-import { connectDB } from './config/DB.js';
+import { connectDB } from './config/db.js';
 import path from 'path';
 
 dotenv.config();
