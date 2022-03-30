@@ -21,9 +21,16 @@ const goalSlice = createSlice({
     },
     removeGoal(state, action) {
       const { id } = action.payload;
-      state.goals = state.goals.filter((g) => {
-        console.log(g._id, id);
-        return g._id !== id;
+      state.goals = state.goals.filter((g) => g._id !== id);
+    },
+    updateGoal(state, action) {
+      const { _id, text } = action.payload;
+      state.goals = state.goals.map((g) => {
+        if (g._id === _id) {
+          return { ...g, text: text };
+        } else {
+          return g;
+        }
       });
     },
     clearGoals(state, action) {
@@ -102,6 +109,31 @@ export const removeGoalAsync = (goalId) => {
   };
 };
 
-export const { addNewGoal, clearGoals, getAllGoals, removeGoal } = goalSlice.actions;
+export const updateGoalAsync = (goalId, text) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(setLoading(true));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${getState().auth.user.token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const response = await axios.put(`${API_URL}/${goalId}`, { text }, config);
+      if (response.data) {
+        dispatch(setSuccess('Goal updated!'));
+        dispatch(updateGoal(response.data));
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
+      const message = error.response?.data?.message || error.message || error.toString();
+      dispatch(setError(message));
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const { addNewGoal, clearGoals, getAllGoals, removeGoal, updateGoal } = goalSlice.actions;
 
 export default goalSlice.reducer;

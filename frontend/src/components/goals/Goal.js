@@ -4,7 +4,7 @@ import { Button, Form, FormFeedback, FormGroup, Input, InputGroup, InputGroupTex
 import React, { Fragment, useState } from 'react';
 import { FaBullseye, FaCheck, FaPencilAlt, FaTimes, FaTrashAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { removeGoalAsync } from '../../store/slices/goalSlice';
+import { removeGoalAsync, updateGoalAsync } from '../../store/slices/goalSlice';
 import { toast } from 'react-toastify';
 
 const registerSchema = Yup.object().shape({
@@ -48,8 +48,8 @@ const Goal = ({ goal }) => {
             if (updatedGoal === goal.text) {
               toast.error(`You haven't updated goal!`);
             } else {
+              dispatch(updateGoalAsync(goal._id, updatedGoal));
               setEditMode(false);
-              dispatch();
               resetForm({ updatedGoal: goal.text });
             }
           }}
